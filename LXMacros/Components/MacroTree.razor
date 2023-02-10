@@ -1,0 +1,19 @@
+﻿
+<ul>
+    @foreach (var folder in GetFolders().Distinct())
+    {
+        <li @onclick="()=> ExpandFolder(folder)" >@folder</li>
+
+        @if(isExpanded.Contains(folder))
+        {
+           <MacroTree Path="@($"{JoinPath(Path,folder)}")" Macros="GetMacrosInFolder(folder)"/> 
+        }        
+    }
+    @foreach (var macroId in GetItems())
+    {
+        <li>
+            <NavLink href="@($"/{macroId}")">@(GetTitle(macroId))</NavLink>
+        </li>
+    }
+</ul>
+

@@ -1,0 +1,26 @@
+﻿@page "/"
+@page "/{MacroId}"
+@using LXProtocols.AvolitesWebAPI.Blazor
+@using BlazorMonaco.Editor
+
+<PageTitle>Index</PageTitle>
+
+<TitanConnectionView>
+    <Connected>
+        <div class="container-fluid col-12">
+            <MacroEditor @ref="_macroEditor" @bind-MacroId="@MacroId" OnMacroScriptChanged="(script) => _codeEditor?.SetValue(script)">
+                <Editor>
+                    <StandaloneCodeEditor @ref="CodeEditor" Id="macroEditor" ConstructionOptions="EditorConstructionOptions" OnDidChangeModelContent="OnCodeChanged" />
+                </Editor>
+            </MacroEditor>
+        </div>
+    </Connected>
+    <NotConnected>
+        <div class="alert alert-warning">Unable to connect to the Titan console</div>
+    </NotConnected>
+    <NotConnected>
+        <div class="alert alert-info">Connecting to Titan...</div>
+    </NotConnected>
+</TitanConnectionView>
+
+
