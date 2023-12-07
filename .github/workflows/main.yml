@@ -21,23 +21,23 @@ jobs:
 
     # publishes Blazor project to the release-folder
     - name: Publish .NET Core Project
-      run: dotnet publish LXMacros.csproj -c Release -o release --nologo
+      run: dotnet publish LXMacros/LXMacros.csproj -c Release -o release --nologo
     
     # changes the base-tag in index.html from '/' to 'BlazorGitHubPagesDemo' to match GitHub Pages repository subdirectory
     - name: Change base-tag in index.html from / to BlazorGitHubPagesDemo
-      run: sed -i 's/<base href="\/" \/>/<base href="\/LXMacros\/" \/>/g' release/wwwroot/index.html
+      run: sed -i 's/<base href="\/" \/>/<base href="\/LXMacros\/" \/>/g' LXMacrso/release/wwwroot/index.html
     
     # copy index.html to 404.html to serve the same file when a file is not found
     - name: copy index.html to 404.html
-      run: cp release/wwwroot/index.html release/wwwroot/404.html
+      run: cp LXMacrso/release/wwwroot/index.html LXMacrso/release/wwwroot/404.html
 
     # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
     - name: Add .nojekyll file
-      run: touch release/wwwroot/.nojekyll
+      run: touch LXMacrso/release/wwwroot/.nojekyll
       
     - name: Commit wwwroot to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@3.7.1
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages
-        FOLDER: release/wwwroot
+        FOLDER: LXMacrso/release/wwwroot
